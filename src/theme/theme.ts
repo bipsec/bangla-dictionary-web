@@ -18,7 +18,7 @@ export const tokens = (mode:any) => ({
                 900: "#141414",
             },
             primary: {
-                100: "#d0d1d5",
+                100: "#355f64",
                 200: "#a1a4ab",
                 300: "#727681",
                 400: "#1F2A40",
@@ -131,7 +131,7 @@ export const themeSettings = (mode:any) => {
                 ? {
                     // palette values for dark mode
                     primary: {
-                        main: colors.primary[500],
+                        main: colors.primary[100],
                     },
                     secondary: {
                         main: colors.greenAccent[500],
@@ -200,7 +200,7 @@ export const ColorModeContext = createContext({
 });
 
 export const useMode = () => {
-    const [mode, setMode] = useState("dark");
+    const [mode, setMode] = useState("light");
 
     const colorMode:any = useMemo(
         () => ({
