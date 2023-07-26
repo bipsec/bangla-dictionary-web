@@ -1,10 +1,10 @@
 import * as React from "react";
 import {useState} from "react";
 import {Box, Card, CardContent, Typography, useTheme,} from "@mui/material";
-import {tokens} from "../../theme";
 import SearchIcon from "@mui/icons-material/Search";
 import {alpha, styled} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import {tokens} from "../../theme/theme";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -50,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Home = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [wordMeaningData, setWordMeaningData] = useState([]);
+    const [wordMeaningData, setWordMeaningData] = useState<any>([]);
     const [paramFilter, setParamFilter] = useState(null);
 
 

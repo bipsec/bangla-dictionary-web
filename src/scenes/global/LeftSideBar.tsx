@@ -1,9 +1,7 @@
 import {useState} from "react";
-import {Menu, MenuItem, ProSidebar} from "react-pro-sidebar";
+import {Menu, MenuItem, Sidebar} from "react-pro-sidebar";
 import {Box, IconButton, Typography, useTheme} from "@mui/material";
 import {Link} from "react-router-dom";
-import "react-pro-sidebar/dist/css/styles.css";
-import {tokens} from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
@@ -11,6 +9,7 @@ import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 import GraphicEqOutlinedIcon from '@mui/icons-material/GraphicEqOutlined';
+import {tokens} from "../../theme/theme";
 
 
 const Item = ({ title, to, icon, selected, setSelected }:any) => {
@@ -31,7 +30,7 @@ const Item = ({ title, to, icon, selected, setSelected }:any) => {
     );
 };
 
-const Sidebar = () => {
+const SidebarComponent = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -39,26 +38,26 @@ const Sidebar = () => {
 
     return (
         <Box
-            sx={{
-                "& .pro-sidebar-inner": {
+           /* sx={{
+                "& .sidebar-inner": {
                     background: `${colors.primary[400]} !important`,
                 },
-                "& .pro-icon-wrapper": {
+                "& .icon-wrapper": {
                     backgroundColor: "transparent !important",
                 },
-                "& .pro-inner-item": {
+                "& .inner-item": {
                     padding: "5px 35px 5px 20px !important",
                 },
-                "& .pro-inner-item:hover": {
+                "& .inner-item:hover": {
                     color: "#868dfb !important",
                 },
-                "& .pro-menu-item.active": {
+                "& .menu-item.active": {
                     color: "#6870fa !important",
                 },
-            }}
+            }}*/
         >
-            <ProSidebar collapsed={isCollapsed}>
-                <Menu iconShape="square">
+            <Sidebar collapsed={isCollapsed} style={{backgroundColor:'#141b2d !important'}}>
+                <Menu >
                     {/* LOGO AND MENU ICON */}
                     <MenuItem
                         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -216,9 +215,9 @@ const Sidebar = () => {
                         {/*/>*/}
                     </Box>
                 </Menu>
-            </ProSidebar>
+            </Sidebar>
         </Box>
     );
 };
 
-export default Sidebar;
+export default SidebarComponent;

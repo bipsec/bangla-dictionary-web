@@ -1,6 +1,6 @@
-import { Box, Typography, useTheme} from "@mui/material";
-import { tokens } from "../../theme"
+import {Box, useTheme} from "@mui/material";
 import Header from "../../components/Header";
+import {tokens} from "../../theme/theme";
 
 
 const Dictionary = () => {
