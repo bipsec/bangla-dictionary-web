@@ -1,11 +1,11 @@
 import {Box, CssBaseline, ThemeProvider} from "@mui/material";
 import {Route, Routes} from "react-router-dom";
-import Home from "./scenes/home";
-import About from "./scenes/about";
-import IPA from "./scenes/ipa";
-import Dictionary from "./scenes/dictionary";
+import Home from "./pages/home";
+import About from "./pages/about";
+import IPA from "./pages/ipa";
+import Dictionary from "./pages/dictionary";
 import {ColorModeContext, useMode} from "./theme/theme";
-import AppBarComponent from "./components/app-bar/AppBar";
+import SideMenu from "./components/side-bar/Sidemenu";
 
 const App = ()=> {
     const [theme, colorMode] = useMode();
@@ -15,8 +15,7 @@ const App = ()=> {
                 <CssBaseline/>
                 <div className="app">
                     <main className="content">
-                        <AppBarComponent/>
-
+                        <SideMenu/>
 
                     </main>
                 </div>

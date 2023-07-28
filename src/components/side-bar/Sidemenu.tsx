@@ -22,11 +22,12 @@ import {ColorModeContext} from "../../theme/theme";
 import {Box, IconButton, useTheme} from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import {Route, Routes} from "react-router-dom";
-import Home from "../../scenes/home";
-import About from "../../scenes/about";
-import IPA from "../../scenes/ipa";
-import Dictionary from "../../scenes/dictionary";
+import {Link, Route, Routes} from "react-router-dom";
+import Home from "../../pages/home";
+import About from "../../pages/about";
+import IPA from "../../pages/ipa";
+import Dictionary from "../../pages/dictionary";
+import Router from "../../router";
 
 const drawerWidth = 240;
 
@@ -53,7 +54,7 @@ interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
 }
 
-const AppBar = styled(MuiAppBar, {
+const Sidemenu = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({theme, open}) => ({
     transition: theme.transitions.create(['margin', 'width'], {
@@ -78,8 +79,30 @@ const DrawerHeader = styled('div')(({theme}) => ({
     justifyContent: 'flex-end',
 }));
 
-const sidebarItems = ['Home', 'Browse', 'Translator', 'Instructions'];
-export default function AppBarComponent() {
+const sidebarItems = [
+    {
+        id: 1,
+        title: "Home",
+        to: '/home'
+
+    },
+    {
+        id: 2,
+        title: "Browse",
+        to: '/browse'
+
+    }, {
+        id: 2,
+        title: "Translator",
+        to: '/home'
+
+    }, {
+        id: 2,
+        title: "Instructions",
+        to: '/home'
+
+    }];
+export default function SideMenu() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const colorMode = useContext(ColorModeContext);
@@ -94,7 +117,7 @@ export default function AppBarComponent() {
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
-            <AppBar position="fixed" open={open} sx={{backgroundColor: '#355f64'}}>
+            <Sidemenu position="fixed" open={open} sx={{backgroundColor: '#355f64'}}>
                 <Toolbar style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
                         <IconButton
@@ -121,7 +144,7 @@ export default function AppBarComponent() {
                     </IconButton>
 
                 </Toolbar>
-            </AppBar>
+            </Sidemenu>
             <Drawer
                 sx={{
                     width: drawerWidth,
@@ -141,16 +164,19 @@ export default function AppBarComponent() {
                     </IconButton>
                 </DrawerHeader>
                 <Divider/>
-                <List >
-                    {sidebarItems.map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                                </ListItemIcon>
-                                <ListItemText primary={text}/>
-                            </ListItemButton>
-                        </ListItem>
+                <List>
+                    {sidebarItems.map((item, index) => (
+                        <Link to={item.to} style={{ textDecoration: 'none', color: 'black' }}>
+                            <ListItem key={item.id} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                                    </ListItemIcon>
+                                    <ListItemText primary={item.title}/>
+
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
                     ))}
                 </List>
                 <List>
@@ -169,12 +195,7 @@ export default function AppBarComponent() {
 
             <Main open={open}>
                 <DrawerHeader/>
-                <Routes>
-                    <Route path="/" element={<Home/>}></Route>
-                    <Route path="/browse" element={<About/>}></Route>
-                    <Route path="/ipa" element={<IPA/>}></Route>
-                    <Route path="/browse" element={<Dictionary/>}></Route>
-                </Routes>
+                <Router/>
 
             </Main>
         </Box>
