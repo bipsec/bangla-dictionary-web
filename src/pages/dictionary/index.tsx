@@ -20,7 +20,7 @@ const Dictionary = () => {
                     <Grid container spacing={1} display={'flex'} justifyContent="center">
                         {alphabet.split('').map((letter) => (
                             <Grid key={letter} item >
-                                <Link to={ `/browse/details?word=${letter}`} style={{textDecoration: 'none', color: 'black'}}>
+                                <Link to={ `/browse/list-of-words?letter=${letter}`} style={{textDecoration: 'none', color: 'black'}}>
                                     <Paper
                                         sx={{
                                             width: 40,

@@ -5,13 +5,13 @@ import {useSearchParams} from "react-router-dom";
 
 const WordDetailPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const word = searchParams.get("word")
-    console.log('word',word)
+    const letter = searchParams.get("letter")
+    console.log('word',letter)
     return (
         <Box m="20px">
-            <Header title="WordDetailPage Page"></Header>
+            <Header title="List of words Page"></Header>
             <Box>
-                <Typography>WordDetailPage Page</Typography>
+                <Typography>List of words Page</Typography>
             </Box>
         </Box>
     )
