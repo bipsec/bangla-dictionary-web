@@ -1,7 +1,8 @@
 import * as React from "react";
 import {useState} from "react";
-import {useTheme,} from "@mui/material";
+import {useTheme, Typography} from "@mui/material";
 import {tokens} from "../../theme/theme";
+
 
 const Home = () => {
     const theme = useTheme();
@@ -17,7 +18,7 @@ const Home = () => {
     };
 
     return (
-        <> <h1 style={{textAlign:'center'}}>Welcome to Bangla Dictionary</h1></>
+        <Typography variant="h2" style={{textAlign:'center'}}> Welcome to Bangla Dictionary</Typography>
 
     );
 };

@@ -93,7 +93,7 @@ const sidebarItems = [
 
     }, {
         id: 2,
-        title: "Translator",
+        title: "IPA-Translator",
         to: '/home'
 
     }, {
