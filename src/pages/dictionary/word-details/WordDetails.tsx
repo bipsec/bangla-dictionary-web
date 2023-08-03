@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {Box, Typography, useTheme, Grid, Paper } from "@mui/material";
 import Header from "../../../components/Header";
 import {useSearchParams} from "react-router-dom";
+import axios from 'axios';
 
 
 // Define the interface for the response data
@@ -22,10 +23,9 @@ const WordDetailPage = () => {
 
     useEffect(() => {
         if (letter) {
-            fetch(`http://localhost:8002/dictionary/words_by_letter/?letter=${letter}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    setResponse(data);
+            axios.get(`http://localhost:8002/dictionary/words_by_letter/?letter=${letter}`)
+                .then((response) => {
+                    setResponse(response.data);
                     setLoading(false);
                 })
                 .catch((error) => {
