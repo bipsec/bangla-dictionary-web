@@ -26,7 +26,7 @@ import {Link, Route, Routes} from "react-router-dom";
 import Home from "../../pages/home";
 import About from "../../pages/about";
 import IPA from "../../pages/ipa";
-import Dictionary from "../../pages/dictionary";
+import Dictionary from "../../pages/browse";
 import Router from "../../router";
 
 const drawerWidth = 240;
