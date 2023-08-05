@@ -14,7 +14,7 @@
 
 ```sh
 git clone https://github.com/bipsec/bangla-dictionary-web.git
-cd bangla-dictionary
+cd bangla-browse
 docker-compose -f docker-compose.dev.yml up --build
 ```
 
