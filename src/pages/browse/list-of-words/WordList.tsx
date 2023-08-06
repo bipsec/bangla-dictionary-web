@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {Accordion, Box, Grid, Pagination, Paper, Typography} from "@mui/material";
+import {Accordion, Box, Grid, Pagination, Typography} from "@mui/material";
 import Header from "../../../components/Header";
 import {useSearchParams} from "react-router-dom";
 import axios from 'axios';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import InfoIcon from '@mui/icons-material/Info';
 import SearchBox from "../../../components/search-box/SearchBox";
 
 const ITEMS_PER_PAGE = 25;
-const WordDetailPage = () => {
+const WordList = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const letter = searchParams.get("letter")
     const [response, setResponse] = useState<any[]>([]);
@@ -61,8 +60,7 @@ const WordDetailPage = () => {
                 ) : (
                     <Grid item container spacing={3}>
                         {paginatedData.map((item, index) => (
-                            <Grid item xs={12} sm={6} md={3} key={item.word}>
-                                <Paper variant="outlined" sx={{p: 1}}>
+                            <Grid item xs={12} sm={6} md={3} key={item?.id}>
                                     <Accordion
                                         key={index}
                                         expanded={expandedAccordion === index}
@@ -73,20 +71,19 @@ const WordDetailPage = () => {
                                             expandIcon={<ExpandMoreIcon/>}
                                             sx={{p: 0}}
                                         >
-                                            <Typography>{item.word}</Typography>
+                                            <Typography p={1}>{item?.word}</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
-                                            {item.similar_spellings.map((spelling: any) => (
+                                            {item?.similar_spellings.map((spelling: any) => (
                                                 <Box key={spelling.id} sx={{mb: 1}}>
                                                     <Typography variant="subtitle1">
-                                                        {spelling.meaning_no}: {spelling.meanings.join(', ')}
+                                                        {spelling.meaning_no}: {spelling?.meaning}
                                                     </Typography>
                                                 </Box>
                                             ))}
                                         </AccordionDetails>
                                     </Accordion>
 
-                                </Paper>
                             </Grid>
                         ))}
 
@@ -103,4 +100,4 @@ const WordDetailPage = () => {
     );
 };
 
-export default WordDetailPage;
+export default WordList;

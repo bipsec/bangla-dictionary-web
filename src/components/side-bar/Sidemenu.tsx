@@ -9,8 +9,6 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -22,11 +20,8 @@ import {ColorModeContext} from "../../theme/theme";
 import {Box, IconButton, useTheme} from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import {Link, Route, Routes} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Home from "../../pages/home";
-import About from "../../pages/about";
-import IPA from "../../pages/ipa";
-import Dictionary from "../../pages/browse";
 import Router from "../../router";
 
 const drawerWidth = 240;
@@ -104,26 +99,19 @@ const sidebarItems = [
     }];
 export default function SideMenu() {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const colorMode = useContext(ColorModeContext);
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
 
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
-            <Sidemenu position="fixed" open={open} sx={{backgroundColor: '#355f64'}}>
+            <Sidemenu position="fixed" open={true} sx={{backgroundColor: '#355f64'}}>
                 <Toolbar style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"
-                            onClick={handleDrawerOpen}
                             edge="start"
                             sx={{mr: 2, ...(open && {display: 'none'})}}
                         >
@@ -159,9 +147,6 @@ export default function SideMenu() {
                 open={open}
             >
                 <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
-                    </IconButton>
                 </DrawerHeader>
                 <Divider/>
                 <List>
@@ -170,7 +155,7 @@ export default function SideMenu() {
                             <ListItem key={item.id} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                                        <InboxIcon/>
                                     </ListItemIcon>
                                     <ListItemText primary={item.title}/>
 

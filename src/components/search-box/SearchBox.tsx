@@ -6,6 +6,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import {styled} from '@mui/material/styles';
 import InputBase from "@mui/material/InputBase";
 import {Box} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const Search = styled('div')(({theme}: any) => ({
     display: 'flex',
@@ -44,6 +45,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 const SearchBox = () => {
     const [isDisableCancelIcon, setIsDisableCancelIcon] = useState<boolean>(true);
     const [searchValue, setSearchValue] = useState('');
+    const navigate = useNavigate() ;
     const onChangeGlobalSearch = useCallback(
         (e: any) => {
             const value = e.target.value;
@@ -59,6 +61,12 @@ const SearchBox = () => {
         [isDisableCancelIcon],
     );
 
+    const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            navigate(`/word?word=${searchValue}`);
+        }
+    };
+
     return (
         <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
             <Search>
@@ -70,6 +78,7 @@ const SearchBox = () => {
                 placeholder={`Search`}
                 inputProps={{'aria-label': 'search'}}
                 onChange={onChangeGlobalSearch}
+                onKeyDown={handleSearch}
             />
             <IconButton
                 disabled={isDisableCancelIcon}
