@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { Box, TextField } from "@mui/material";
-import Header from "../../components/Header";
+import {Box, TextField, Typography} from "@mui/material";
 import Button from '@mui/material/Button';
 
 const inputStyles = {
@@ -8,21 +7,28 @@ const inputStyles = {
 };
 
 const containerStyles = {
-    marginTop: '16px', // Adjust the marginTop to control the spacing
-};
+    marginTop: '16px',
+}
 
 const fileInputStyles = {
-    display: 'none', // Hide the file input
+    display: 'none',
 };
 
 const fileInputLabelStyles = {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#446655',
     color: 'white',
     padding: '10px 20px',
     borderRadius: '4px',
     cursor: 'pointer',
 };
 
+
+const customButtonStyles  = {
+    backgroundColor: '#3d5441',
+    color: 'white',
+    padding: '8px 16px',
+    width: '105px',
+};
 const IPA = () => {
 
     const [inputValue, setInputValue] = React.useState('');
@@ -43,12 +49,12 @@ const IPA = () => {
     };
 
     const handleIPAClick = () => {
-        console.log(`Clicked IPA with input value: ${inputValue}`);
+        // console.log(`Clicked IPA with input value: ${inputValue}`);
     };
 
     return (
         <Box m="20px">
-            <Header title="Generate IPA"></Header>
+            <Typography variant="h2" style={{paddingBottom:'15px'}}> Generate IPA </Typography>
             <Box>
                 <div>
                     <TextField
@@ -64,15 +70,15 @@ const IPA = () => {
                         rows={10}
                     />
                     <div style={containerStyles}>
-                        {/* Hidden file input */}
+
                         <input
                             type="file"
                             accept=".txt"
                             onChange={handleFileUpload}
                             style={fileInputStyles}
-                            id="fileInput" // Connect the label and input using 'for' attribute
+                            id="fileInput"
                         />
-                        {/* Label for file input */}
+
                         <label htmlFor="fileInput" style={fileInputLabelStyles}>
                             Upload File
                         </label>
@@ -83,6 +89,7 @@ const IPA = () => {
                             color="primary"
                             onClick={handleIPAClick}
                             fullWidth
+                            style={customButtonStyles}
                         >
                             IPA
                         </Button>
