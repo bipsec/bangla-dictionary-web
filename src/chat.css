@@ -1,0 +1,28 @@
+/* GeneralChatbot.css */
+
+.chatbot-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.message {
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 80%;
+    word-wrap: break-word;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #2196F3; /* User message background color */
+    color: white; /* User message text color */
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #E0E0E0; /* Bot message background color */
+    color: #333; /* Bot message text color */
+}
