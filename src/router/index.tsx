@@ -6,6 +6,7 @@ import Dictionary from "../pages/browse";
 import WordDetailsPage from "../pages/word-details";
 import WordList from "../pages/browse/list-of-words/WordList";
 import Instructions from "../pages/instructions";
+import Chat from "../pages/chat";
 
 const Router = () => {
 
@@ -18,6 +19,7 @@ const Router = () => {
             <Route path="/browse/list-of-words" element={<WordList/>}/>
             <Route path="/ipa" element={<IPA/>}/>
             <Route path="/instructions" element={<Instructions/>}/>
+            <Route path="/chat" element={<Chat/>}/>
         </Routes>
 
     );
