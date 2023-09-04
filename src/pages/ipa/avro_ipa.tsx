@@ -1,4 +1,4 @@
-import React, {ChangeEvent, CSSProperties, useState} from 'react';
+import React, { ChangeEvent, CSSProperties, useState } from 'react';
 import { Box, TextField, Typography, Grid, Button, Paper } from "@mui/material";
 import AvroPhonetic from "../../avro/avrophonetic";
 
@@ -19,21 +19,33 @@ const conversionStyles: CSSProperties = {
     padding: '16px',
     overflowY: 'auto',
     userSelect: 'none',
-
 };
 
 const buttonStyles = {
-    display: 'flex',
     backgroundColor: '#3d5441',
     color: 'white',
     padding: '8px 16px',
-    width: 'auto', // Remove fixed width
-    margin: '20px auto 0', // Center the button horizontally and add some top margin
+    width: '100px',
+};
+
+const clearButtonStyles = {
+    backgroundColor: '#f44336',
+    color: 'white',
+    padding: '8px 16px',
+    width: '100px',
+};
+
+const buttonContainerStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px',
+    gap: '15px'
 };
 
 const AvroTyping = () => {
     const [inputValue, setInputValue] = useState('');
     const [conversion, setConversion] = useState('');
+    const [responses, setResponses] = useState<string[]>([]);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
@@ -50,16 +62,20 @@ const AvroTyping = () => {
     };
 
     const convertText = () => {
-        // Create an AvroTypingProps object
         const avroTypingProps = {
             input: inputValue,
         };
 
-        // Convert the input text using AvroPhonetic
         const avroPhoneticText = AvroPhonetic(avroTypingProps);
 
-        // Update the conversion with the converted text
         setConversion(avroPhoneticText);
+        setResponses([...responses, avroPhoneticText]);
+    };
+
+    const handleClearClick = () => {
+        setInputValue('');
+        setConversion('');
+        setResponses([]);
     };
 
     return (
@@ -91,36 +107,34 @@ const AvroTyping = () => {
                             fullWidth
                             value={conversion}
                             InputProps={{
-                                style: {...conversionStyles, textRendering: 'auto'},
+                                style: { ...conversionStyles, textRendering: 'auto' },
                             }}
                             multiline
                             rows={10}
-                            // disabled // To prevent user input in the conversion box
                         />
                     </Paper>
                 </Grid>
             </Grid>
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleAvroTypeClick}
-                style={buttonStyles}
-            >
-                Convert
-            </Button>
+            <div style={buttonContainerStyles}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleAvroTypeClick}
+                    style={buttonStyles}
+                >
+                    Convert
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleClearClick}
+                    style={clearButtonStyles}
+                >
+                    Clear
+                </Button>
+            </div>
         </Box>
     );
 };
 
 export default AvroTyping;
-
-
-// const responseStyles: CSSProperties = {
-//     height: '22em',
-//     borderColor: '#ccc',
-//     backgroundColor: 'white',
-//     color: 'black',
-//     padding: '16px',
-//     overflowY: 'auto',
-//     userSelect: 'none',
-// };

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState , CSSProperties} from 'react';
+import React, { ChangeEvent, useState, CSSProperties } from 'react';
 import { Box, TextField, Typography, Button, Grid, Paper } from "@mui/material";
 import AvroTyping from "./avro_ipa";
 
@@ -22,15 +22,28 @@ const responseStyles: CSSProperties = {
 };
 
 const buttonStyles = {
-    display: 'flex',
     backgroundColor: '#3d5441',
     color: 'white',
     padding: '8px 16px',
-    width: 'auto', // Remove fixed width
-    margin: '20px auto 0', // Center the button horizontally and add some top margin
+    width: '100px',
 };
 
 
+
+const clearButtonStyles = {
+    backgroundColor: '#f44336',
+    color: 'white',
+    padding: '8px 16px',
+    width: '100px',
+};
+
+
+const buttonContainerStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px',
+    gap: '15px'
+};
 
 const IPA = () => {
     const [inputValue, setInputValue] = useState('');
@@ -41,16 +54,22 @@ const IPA = () => {
     };
 
     const handleIPAClick = () => {
-        // Create IPA Translator logic and update responses
-        // For now, I'll add a placeholder response.
+        // IPA Translator logic
+        // A random response
         setResponses(["Hello! Please implement some logic to get the expected response."]);
     };
 
     const handleEnterKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            // Trigger IPA Translator logic when Enter is pressed
+            // IPA Translator logic
             handleIPAClick();
         }
+    };
+
+    const handleClearClick = () => {
+        // Clear the input and responses
+        setInputValue('');
+        setResponses([]);
     };
 
     return (
@@ -82,28 +101,34 @@ const IPA = () => {
                             fullWidth
                             value={responses.join('\n')}
                             InputProps={{
-                                style: {...responseStyles, textRendering: 'auto'},
-
+                                style: { ...responseStyles, textRendering: 'auto' },
                             }}
                             multiline
                             rows={10}
-                            // disabled // To prevent user input in the response box
                         />
                     </Paper>
                 </Grid>
             </Grid>
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleIPAClick}
-                style={buttonStyles}
-            >
-                IPA
-            </Button>
+            <div style={buttonContainerStyles}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleIPAClick}
+                    style={buttonStyles}
+                >
+                    IPA
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleClearClick}
+                    style={clearButtonStyles}
+                >
+                    Clear
+                </Button>
+            </div>
             <AvroTyping/>
         </Box>
-
-
     );
 };
 
