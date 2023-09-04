@@ -1,56 +1,49 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Box, TextField, Typography } from "@mui/material";
-import Button from '@mui/material/Button';
+import React, { ChangeEvent, useState , CSSProperties} from 'react';
+import { Box, TextField, Typography, Button, Grid, Paper } from "@mui/material";
+import AvroTyping from "./avro_ipa";
 
-import AvroTyping from './avro_ipa';
+const containerStyles = {
+    padding: '20px',
+};
 
 const inputStyles = {
     height: '22em',
+    borderColor: '#ccc',
 };
 
-const containerStyles = {
-    marginTop: '16px',
-}
-
-const fileInputStyles = {
-    display: 'none',
+const responseStyles: CSSProperties = {
+    height: '22em',
+    borderColor: '#ccc',
+    backgroundColor: 'white',
+    color: 'black',
+    padding: '16px',
+    overflowY: 'auto',
+    userSelect: 'none',
 };
 
-const fileInputLabelStyles = {
-    backgroundColor: '#446655',
-    color: 'white',
-    padding: '10px 20px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-};
-
-const customButtonStyles = {
+const buttonStyles = {
+    display: 'flex',
     backgroundColor: '#3d5441',
     color: 'white',
     padding: '8px 16px',
-    width: '105px',
+    width: 'auto', // Remove fixed width
+    margin: '20px auto 0', // Center the button horizontally and add some top margin
 };
+
+
 
 const IPA = () => {
     const [inputValue, setInputValue] = useState('');
+    const [responses, setResponses] = useState<string[]>([]);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
 
-    const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setInputValue(e.target?.result as string);
-            };
-            reader.readAsText(file);
-        }
-    };
-
     const handleIPAClick = () => {
-        // Create IPA Translator logic
+        // Create IPA Translator logic and update responses
+        // For now, I'll add a placeholder response.
+        setResponses(["Hello! Please implement some logic to get the expected response."]);
     };
 
     const handleEnterKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -63,49 +56,55 @@ const IPA = () => {
     return (
         <Box m="20px">
             <Typography variant="h2" style={{ paddingBottom: '15px', textAlign: 'center' }}> Generate IPA </Typography>
-            <Box>
-                <div>
-                    <TextField
-                        label="Input Text"
-                        variant="outlined"
-                        fullWidth
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        onKeyDown={handleEnterKeyPress}
-                        InputProps={{
-                            style: inputStyles,
-                        }}
-                        multiline
-                        rows={10}
-                    />
-                    <div style={containerStyles}>
-                        <input
-                            type="file"
-                            accept=".txt"
-                            onChange={handleFileUpload}
-                            style={fileInputStyles}
-                            id="fileInput"
-                        />
-                        <label htmlFor="fileInput" style={fileInputLabelStyles}>
-                            Upload File
-                        </label>
-                    </div>
-                    <div style={containerStyles}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleIPAClick}
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <Paper elevation={3} style={containerStyles}>
+                        <TextField
+                            label="Input Text"
+                            variant="outlined"
                             fullWidth
-                            style={customButtonStyles}
-                        >
-                            IPA
-                        </Button>
-                    </div>
-                </div>
-            </Box>
-            <AvroTyping />
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            onKeyDown={handleEnterKeyPress}
+                            InputProps={{
+                                style: inputStyles,
+                            }}
+                            multiline
+                            rows={10}
+                        />
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Paper elevation={3} style={containerStyles}>
+                        <TextField
+                            label="Responses"
+                            variant="outlined"
+                            fullWidth
+                            value={responses.join('\n')}
+                            InputProps={{
+                                style: {...responseStyles, textRendering: 'auto'},
+
+                            }}
+                            multiline
+                            rows={10}
+                            // disabled // To prevent user input in the response box
+                        />
+                    </Paper>
+                </Grid>
+            </Grid>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={handleIPAClick}
+                style={buttonStyles}
+            >
+                IPA
+            </Button>
+            <AvroTyping/>
         </Box>
-    )
-}
+
+
+    );
+};
 
 export default IPA;
