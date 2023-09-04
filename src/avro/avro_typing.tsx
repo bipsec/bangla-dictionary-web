@@ -1,6 +1,6 @@
 import React, { ChangeEvent, CSSProperties, useState } from 'react';
 import { Box, TextField, Typography, Grid, Button, Paper } from "@mui/material";
-import AvroPhonetic from "../../avro/avrophonetic";
+import AvroPhonetic from "./avrophonetic";
 
 const containerStyles = {
     padding: '20px',
