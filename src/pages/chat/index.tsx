@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import {
-    TextField,
-    Button,
-    Container,
-    Grid,
-    Typography,
-    Paper,
-    Box,
-} from '@mui/material';
+import { TextField, Button, Container, Grid, Typography, Paper, Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import './../../chat.css'; // Import your CSS file for styling
+import '../.././chat.css'; // Import your CSS file for styling
 
 interface Message {
     text: string;
     isUser: boolean;
 }
+
+const buttonStyles = {
+    backgroundColor: '#3d5441',
+    color: 'white',
+    padding: '8px 16px',
+    width: '100px',
+};
+
+
 
 const Chat: React.FC = () => {
     const [inputText, setInputText] = useState<string>('');
@@ -98,9 +99,7 @@ const Chat: React.FC = () => {
                         {messages.map((message, index) => (
                             <div
                                 key={index}
-                                className={`message ${
-                                    message.isUser ? 'user' : 'bot'
-                                } ${message.isUser ? 'user-message' : 'bot-message'}`}
+                                className={`message ${message.isUser ? 'user' : 'bot'}`}
                             >
                                 {message.text}
                             </div>
@@ -130,6 +129,7 @@ const Chat: React.FC = () => {
                                     endIcon={<SendIcon />}
                                     fullWidth
                                     onClick={handleUserInput}
+                                    style={buttonStyles}
                                 >
                                     Send
                                 </Button>
