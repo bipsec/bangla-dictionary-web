@@ -33,7 +33,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                         item={{
                             id: index,
                             title: text,
-                            to: `/${text.toLowerCase()}`, // Example: "/chat", "/help"
+                            to: `/${text.toLowerCase()}`,
                             icon: index % 2 === 0 ? <ChatBubbleOutlineOutlinedIcon /> : <EmailOutlinedIcon />,
                         }}
                     />
