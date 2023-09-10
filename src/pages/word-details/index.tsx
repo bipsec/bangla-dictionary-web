@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography, CircularProgress } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 const API_URL = "http://0.0.0.0:8000/dictionary/word";
-
 
 const WordDetailsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -29,37 +28,49 @@ const WordDetailsPage = () => {
         }
     }, [word]);
 
-    if (loading) {
-        return <Typography>Loading...</Typography>;
-    }
-
-    if (error) {
-        return <Typography>{error}</Typography>;
-    }
-
     return (
         <Box
             display="flex"
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
+
         >
-            <Typography variant="h2" align="center">
-                Word details
-            </Typography>
-            {wordDetails && (
-                <Paper sx={{ p: 2, width: "600px", m: 2, boxShadow: "none" }}>
-                    <Typography variant="h4">{wordDetails?.word}:</Typography>
-                    {wordDetails.hasOwnProperty("similar_spellings") &&
-                        wordDetails?.similar_spellings.map((spelling: any) => (
-                            <Box key={spelling.id} sx={{ mb: 1 }}>
-                                <Typography variant="subtitle1">
-                                    {spelling.meaning_no}: {spelling?.meaning}
-                                </Typography>
-                            </Box>
-                        ))}
-                </Paper>
-            )}
+            <Box width="100%" maxWidth="600px">
+                <Typography variant="h4" align="center" gutterBottom>
+                    Word Details
+                </Typography>
+                {loading ? (
+                    <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+                        <CircularProgress />
+                    </Box>
+                ) : error ? (
+                    <Typography color="error">{error}</Typography>
+                ) : wordDetails?.word ? (
+                    <Paper elevation={3} sx={{ padding: 2 }}>
+                        <Typography variant="h5" gutterBottom>
+                            {wordDetails?.word}
+                        </Typography>
+                        {wordDetails.hasOwnProperty("similar_spellings") &&
+                            wordDetails?.similar_spellings.map((spelling: any, index: number) => (
+                                <Box key={spelling.id}>
+                                    <Typography variant="subtitle1">
+                                        {spelling.meaning_no}: {spelling?.meaning}
+                                    </Typography>
+                                    {index < wordDetails.similar_spellings.length - 1 && (
+                                        <Box sx={{ my: 1, borderBottom: "1px solid #ccc" }} />
+                                    )}
+                                </Box>
+                            ))}
+                    </Paper>
+                ) : (
+                    <Paper elevation={3} sx={{ padding: 2 }}>
+                        <Typography variant="body1">
+                            Word not found. Please check the word and try again.
+                        </Typography>
+                    </Paper>
+                )}
+            </Box>
         </Box>
     );
 };
