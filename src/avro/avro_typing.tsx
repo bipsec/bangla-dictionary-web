@@ -35,11 +35,19 @@ const clearButtonStyles = {
     width: '100px',
 };
 
+const responseStyles: CSSProperties = {
+    marginTop: '20px',
+    padding: '16px',
+    backgroundColor: 'white',
+    borderColor: '#ccc',
+    color: 'black',
+};
+
 const buttonContainerStyles = {
     display: 'flex',
     justifyContent: 'center',
     marginTop: '20px',
-    gap: '15px'
+    gap: '15px',
 };
 
 const AvroTyping = () => {
@@ -48,28 +56,31 @@ const AvroTyping = () => {
     const [responses, setResponses] = useState<string[]>([]);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value);
+        const inputText = event.target.value;
+        setInputValue(inputText);
+        convertText(inputText);
     };
 
     const handleAvroTypeClick = () => {
-        convertText();
+        const response = "Your response message here"; // Replace with your actual response message
+        setResponses([response]);
     };
 
     const handleInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            convertText();
+            convertText(inputValue);
         }
     };
 
-    const convertText = () => {
+    const convertText = (textToConvert: string) => {
         const avroTypingProps = {
-            input: inputValue,
+            input: textToConvert,
         };
 
         const avroPhoneticText = AvroPhonetic(avroTypingProps);
 
         setConversion(avroPhoneticText);
-        setResponses([...responses, avroPhoneticText]);
+        setResponses([...responses]);
     };
 
     const handleClearClick = () => {
@@ -114,6 +125,13 @@ const AvroTyping = () => {
                         />
                     </Paper>
                 </Grid>
+                <Grid item xs={12}>
+                    {responses.length > 0 && (
+                        <Paper elevation={3} style={responseStyles}>
+                            {responses[responses.length - 1]}
+                        </Paper>
+                    )}
+                </Grid>
             </Grid>
             <div style={buttonContainerStyles}>
                 <Button
@@ -122,7 +140,7 @@ const AvroTyping = () => {
                     onClick={handleAvroTypeClick}
                     style={buttonStyles}
                 >
-                    Convert
+                    IPA
                 </Button>
                 <Button
                     variant="contained"
