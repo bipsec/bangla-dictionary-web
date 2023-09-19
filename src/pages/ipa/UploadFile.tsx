@@ -1,5 +1,6 @@
 import React, { CSSProperties, useState } from 'react';
 import { Box, Button, Paper, TextField } from "@mui/material";
+import {handleIPA} from "../../utils";
 
 interface UploadFileComponentProps {
     selectedFile: File | null;
@@ -46,10 +47,14 @@ const buttonContainerStyles = {
     marginTop: '20px',
     gap: '15px',
 };
-
 const UploadFileComponent: React.FC<UploadFileComponentProps> = ({ selectedFile, onClear }) => {
+    const [inputValue, setInputValue] = useState('');
     const [response, setResponse] = useState<string | null>(null);
     const [isIpaResponse, setIsIpaResponse] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    console.log(loading, error, setInputValue);
 
     const handleFileLoader = () => {
         if (selectedFile) {
@@ -69,10 +74,12 @@ const UploadFileComponent: React.FC<UploadFileComponentProps> = ({ selectedFile,
         }
     };
 
-    const handleIPAClick = () => {
-        // IPA Translator logic
-        // A random response
-        setIsIpaResponse(["Hello! Please implement some logic to get the expected response."]);
+    const handleIPAClick = async () => {
+        setLoading(true);
+        const { result, error } = await handleIPA(inputValue);
+        setIsIpaResponse(result ? [result] : []);
+        setError(error);
+        setLoading(false);
     };
 
     const handleClearClick = () => {
@@ -142,3 +149,12 @@ const UploadFileComponent: React.FC<UploadFileComponentProps> = ({ selectedFile,
 };
 
 export default UploadFileComponent;
+
+
+// while uploading second time it's showing no file selected ---- need to fix this
+
+// When uploading a file for the second time, it's showing "No file selected."
+// This happens because the selectedFile state is not getting updated when you clear the content using the "Clear" button.
+// To fix this issue, you need to update the selectedFile state when you clear the content. You can do this by resetting the selectedFile state
+// to null in the handleClearClick function.
+//

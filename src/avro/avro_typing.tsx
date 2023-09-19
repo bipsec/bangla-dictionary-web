@@ -1,6 +1,7 @@
 import React, { ChangeEvent, CSSProperties, useState } from 'react';
 import { Box, TextField, Typography, Grid, Button, Paper } from "@mui/material";
 import AvroPhonetic from "./avrophonetic";
+import {handleIPA} from "../utils";
 
 const containerStyles = {
     padding: '20px',
@@ -50,10 +51,15 @@ const buttonContainerStyles = {
     gap: '15px',
 };
 
+
 const AvroTyping = () => {
     const [inputValue, setInputValue] = useState('');
     const [conversion, setConversion] = useState('');
     const [responses, setResponses] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    console.log(loading, error);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const inputText = event.target.value;
@@ -61,14 +67,17 @@ const AvroTyping = () => {
         convertText(inputText);
     };
 
-    const handleAvroTypeClick = () => {
-        const response = "Your response message here"; // Replace with your actual response message
-        setResponses([response]);
+    const handleIPAClick = async () => {
+        setLoading(true);
+        const { result, error } = await handleIPA(inputValue);
+        setResponses(result ? [result] : []);
+        setError(error);
+        setLoading(false);
     };
 
     const handleInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            convertText(inputValue);
+            handleIPAClick();
         }
     };
 
@@ -137,7 +146,7 @@ const AvroTyping = () => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleAvroTypeClick}
+                    onClick={handleIPAClick}
                     style={buttonStyles}
                 >
                     IPA
