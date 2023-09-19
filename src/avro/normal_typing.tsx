@@ -1,5 +1,7 @@
-import React, { ChangeEvent, useState , CSSProperties} from 'react';
+import React, { ChangeEvent, useState, CSSProperties } from 'react';
 import { TextField, Paper, Box, Button, Typography, Grid } from "@mui/material";
+
+import {handleIPA} from "../utils";
 
 const containerStyles: CSSProperties = {
     padding: '20px',
@@ -41,18 +43,25 @@ const buttonContainerStyles = {
     gap: '15px',
 };
 
+
 const NormalTyping = () => {
     const [inputValue, setInputValue] = useState('');
     const [responses, setResponses] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    console.log(loading,error);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
 
-    const handleIPAClick = () => {
-        // IPA Translator logic
-        // A random response
-        setResponses(["Hello! Please implement some logic to get the expected response."]);
+    const handleIPAClick = async () => {
+        setLoading(true);
+        const { result, error } = await handleIPA(inputValue);
+        setResponses(result ? [result] : []);
+        setError(error);
+        setLoading(false);
     };
 
     const handleEnterKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -66,6 +75,7 @@ const NormalTyping = () => {
         // Clear the input and responses
         setInputValue('');
         setResponses([]);
+        setError(null); // Clear any previous errors
     };
 
     return (
@@ -124,6 +134,11 @@ const NormalTyping = () => {
                     Clear
                 </Button>
             </div>
+            {/*{error && (*/}
+            {/*    <Typography variant="body1" style={{ color: 'red', marginTop: '10px', textAlign: 'center' }}>*/}
+            {/*        {error}*/}
+            {/*    </Typography>*/}
+            {/*)}*/}
         </Box>
     );
 };
