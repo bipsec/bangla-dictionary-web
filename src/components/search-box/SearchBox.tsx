@@ -70,25 +70,25 @@ const SearchBox = () => {
     return (
         <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
             <Search>
-            <SearchIconWrapper>
-                <SearchIcon color={'primary'}/>
-            </SearchIconWrapper>
-            <StyledInputBase
-                value={searchValue}
-                placeholder={`Search`}
-                inputProps={{'aria-label': 'search'}}
-                onChange={onChangeGlobalSearch}
-                onKeyDown={handleSearch}
-            />
-            <IconButton
-                disabled={isDisableCancelIcon}
-                onClick={() => {
-                    setIsDisableCancelIcon(true);
-                    setSearchValue('');
-                }}>
-                <CancelIcon/>
-            </IconButton>
-        </Search>
+                <SearchIconWrapper>
+                    <SearchIcon color={'primary'}/>
+                </SearchIconWrapper>
+                <StyledInputBase
+                    value={searchValue}
+                    placeholder={`Search`}
+                    inputProps={{'aria-label': 'search'}}
+                    onChange={onChangeGlobalSearch}
+                    onKeyDown={handleSearch}
+                />
+                <IconButton
+                    disabled={isDisableCancelIcon}
+                    onClick={() => {
+                        setIsDisableCancelIcon(true);
+                        setSearchValue('');
+                    }}>
+                    <CancelIcon/>
+                </IconButton>
+            </Search>
         </Box>
     );
 };
