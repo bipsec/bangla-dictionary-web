@@ -1,14 +1,13 @@
 import React from 'react';
 import SearchBox from "../../components/search-box/SearchBox";
-import {Box, Grid, Paper, Typography} from "@mui/material";
+import {Grid, Paper, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 
 
 const Dictionary = () => {
-    const alphabet = 'অআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহড়ঢ়য়ৎংঃঁ';
+    const alphabet = 'অআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ';
 
     const handleHover = (letter:any) => {
-        // You can perform any additional actions when a letter is focused here
     };
     return (
         <>
