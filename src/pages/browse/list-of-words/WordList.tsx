@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {Grid, Pagination, Typography,} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Grid, Pagination, Typography } from "@mui/material";
 import Header from "../../../components/Header";
-import {Link, useSearchParams} from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 import SearchBox from "../../../components/search-box/SearchBox";
 import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
@@ -20,14 +20,22 @@ const WordList = () => {
     const handlePageChange = (e: any, newPage: number) => {
         setCurrentPage(newPage);
     };
+
+    // Calculate the start and end indices for the current page
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const paginatedData = response.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+
+    const paginatedData = response.slice(startIndex, endIndex);
+
+// Calculate the total number of pages
+    const totalPages = Math.ceil(response.length / ITEMS_PER_PAGE);
+
 
 
 
     useEffect(() => {
         if (letter) {
-            axios.get(`http://localhost:8001/dictionary/words?letter=${letter}`)
+            axios.get(`http://localhost:8001/dictionary/words?letter=${letter}&page=1&limit=500`)
                 .then((response) => {
                     setResponse(response.data);
                     setLoading(false);
@@ -46,14 +54,17 @@ const WordList = () => {
             </Grid>
         );
     }
+    console.log("Total number of items:", response.length);
+
+    console.log("Number of pages:", Math.ceil(response.length / ITEMS_PER_PAGE));
 
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
-                <SearchBox/>
+                <SearchBox />
             </Grid>
             <Grid item xs={12}>
-                <Header title={`${letter} - List of words`}/>
+                <Header title={`${letter} - List of words`} />
             </Grid>
             <Grid item xs={12}>
                 {response.length === 0 ? (
@@ -63,33 +74,32 @@ const WordList = () => {
                 ) : (
                     <Grid container>
                         {paginatedData.map((item, index) => (
-                            <Grid item xs={12} md={3} sm={6}>
+                            <Grid item xs={12} md={3} sm={6} key={index}>
                                 <List dense={true}>
                                     <Link to={`/word-details?word=${item?.word}`}
-                                          style={{textDecoration: 'none', color: 'black'}}>
+                                          style={{ textDecoration: 'none', color: 'black' }}>
                                         <ListItem>
-                                            <LabelOutlinedIcon sx={{marginRight: '10px'}}/>
+                                            <LabelOutlinedIcon sx={{ marginRight: '10px' }} />
                                             {`${item?.word}`}
                                         </ListItem>
                                     </Link>
-                                </List></Grid>
-
-
-
+                                </List>
+                            </Grid>
                         ))}
-
                     </Grid>
                 )}
             </Grid>
             {response.length > ITEMS_PER_PAGE && (
                 <Grid item xs={12} display="flex" justifyContent="center">
                     <Pagination
-                        count={Math.ceil(response.length / ITEMS_PER_PAGE)}
+                        count={totalPages}
                         page={currentPage}
                         onChange={handlePageChange}
                         variant="outlined"
                         color="secondary"
                     />
+
+
                 </Grid>
             )}
         </Grid>
