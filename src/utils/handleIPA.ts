@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://0.0.0.0:8000/getipa";
+const API_URL = "http://localhost:8001/get_ipa/";
 
 const handleIPA = async (inputValue: string): Promise<{ result: string | null, error: string | null }> => {
 
