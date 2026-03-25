@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
@@ -15,7 +15,7 @@ import {
   Search,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { SearchBox } from "./search-box"
+import { SearchBox, SearchBoxHandle } from "./search-box"
 import { SearchOverlay } from "./search-overlay"
 import { cn } from "@/lib/utils"
 
@@ -31,6 +31,25 @@ export function TopNav() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [searchOpen, setSearchOpen] = useState(false)
+  const searchBoxRef = useRef<SearchBoxHandle>(null)
+
+  // Ctrl+K / Cmd+K keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault()
+        // Check if desktop search is visible
+        const isDesktop = window.innerWidth >= 1024
+        if (isDesktop) {
+          searchBoxRef.current?.focus()
+        } else {
+          setSearchOpen(true)
+        }
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [])
 
   return (
     <>
@@ -72,7 +91,7 @@ export function TopNav() {
 
           {/* Desktop search */}
           <div className="hidden lg:block w-80">
-            <SearchBox variant="navbar" />
+            <SearchBox ref={searchBoxRef} variant="navbar" />
           </div>
 
           {/* Mobile search button */}

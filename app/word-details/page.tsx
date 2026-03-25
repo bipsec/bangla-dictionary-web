@@ -9,7 +9,8 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
-import { fetchWordDetails } from "@/lib/api"
+import { fetchWordDetails, fetchWords } from "@/lib/api"
+import { addWordToHistory } from "@/lib/word-history"
 
 interface Spelling {
   meaning_no: number
@@ -50,6 +51,7 @@ function WordDetailsContent() {
   const searchParams = useSearchParams()
   const word = searchParams.get("word")
   const [wordDetails, setWordDetails] = useState<WordData>({})
+  const [relatedWords, setRelatedWords] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -57,10 +59,21 @@ function WordDetailsContent() {
     if (word) {
       setLoading(true)
       setError(null)
+      addWordToHistory(word)
       fetchWordDetails(word)
         .then((data) => setWordDetails(data))
         .catch(() => setError("An error occurred while fetching data."))
         .finally(() => setLoading(false))
+
+      // Fetch related words (same first letter)
+      const firstChar = word.charAt(0)
+      fetchWords(firstChar, 1, 500)
+        .then((data) => {
+          const words: string[] = (data.words || []).map((w: { word: string }) => w.word)
+          const related = words.filter((w) => w !== word).slice(0, 10)
+          setRelatedWords(related)
+        })
+        .catch(() => setRelatedWords([]))
     }
   }, [word])
 
@@ -146,6 +159,25 @@ function WordDetailsContent() {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {/* Related Words */}
+      {relatedWords.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-lg font-semibold">Related Words</h2>
+          <div className="flex flex-wrap gap-2">
+            {relatedWords.map((w) => (
+              <Link key={w} href={`/word-details?word=${w}`}>
+                <Badge
+                  variant="secondary"
+                  className="text-sm px-3 py-1.5 cursor-pointer transition-colors hover:bg-primary/20 hover:text-primary"
+                >
+                  {w}
+                </Badge>
+              </Link>
+            ))}
+          </div>
         </div>
       )}
 
