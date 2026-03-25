@@ -1,0 +1,7 @@
+{
+  "/module/page": "app/module/page.js",
+  "/page": "app/page.js",
+  "/browse/page": "app/browse/page.js",
+  "/ipa/page": "app/ipa/page.js",
+  "/instructions/page": "app/instructions/page.js"
+}
