@@ -1,7 +1,33 @@
 import Link from "next/link"
-import { BookOpen, Languages, Package } from "lucide-react"
+import { BookOpen, Languages, Package, Library } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 import { SearchBox } from "@/components/layout/search-box"
+
+const references = [
+  {
+    name: "ব্যবহারিক বাংলা অভিধান",
+    nameEn: "Byabaharik Bangla Abhidhan",
+    author: "বাংলা একাডেমি (Bangla Academy)",
+    publisher: "বাংলা একাডেমি, ঢাকা",
+    copyright: "Bangla Academy",
+  },
+  {
+    name: "বাংলা একাডেমি আধুনিক বাংলা অভিধান",
+    nameEn: "Bangla Academy Adhunik Bangla Abhidhan",
+    author: "বাংলা একাডেমি (Bangla Academy)",
+    publisher: "বাংলা একাডেমি, ঢাকা",
+    copyright: "Bangla Academy",
+  },
+  {
+    name: "সংসদ বাংলা অভিধান",
+    nameEn: "Samsad Bangla Abhidhan",
+    author: "শৈলেন্দ্র বিশ্বাস (Sailendra Biswas)",
+    publisher: "সাহিত্য সংসদ, কলকাতা",
+    copyright: "Sahitya Samsad",
+  },
+]
 
 const quickLinks = [
   {
@@ -67,6 +93,47 @@ export default function Home() {
           more. Whether you&apos;re a student, traveler, or language enthusiast
           — start exploring the beauty of Bengali today.
         </p>
+      </section>
+
+      <Separator />
+
+      {/* References */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <Library className="h-5 w-5" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold">References</h2>
+            <p className="text-sm text-muted-foreground">
+              Dictionaries and sources used in this project
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {references.map((ref, i) => (
+            <Card key={i} className="border-primary/20 bg-primary/5">
+              <CardContent className="pt-5 space-y-3">
+                <h3 className="font-semibold text-lg leading-snug">{ref.name}</h3>
+                <p className="text-xs text-muted-foreground">{ref.nameEn}</p>
+                <div className="space-y-1.5 text-sm">
+                  <p>
+                    <span className="text-muted-foreground">Author: </span>
+                    {ref.author}
+                  </p>
+                  <p>
+                    <span className="text-muted-foreground">Publisher: </span>
+                    {ref.publisher}
+                  </p>
+                </div>
+                <Badge variant="secondary" className="text-xs">
+                  &copy; {ref.copyright}
+                </Badge>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </section>
     </div>
   )
