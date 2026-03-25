@@ -1,9 +1,14 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { BookOpen, Languages, Package, Library } from "lucide-react"
+import { BookOpen, Languages, Package, Library, Clock, X } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { SearchBox } from "@/components/layout/search-box"
+import { getWordHistory, clearWordHistory } from "@/lib/word-history"
 
 const references = [
   {
@@ -51,6 +56,17 @@ const quickLinks = [
 ]
 
 export default function Home() {
+  const [history, setHistory] = useState<string[]>([])
+
+  useEffect(() => {
+    setHistory(getWordHistory())
+  }, [])
+
+  const handleClearHistory = () => {
+    clearWordHistory()
+    setHistory([])
+  }
+
   return (
     <div className="space-y-12">
       {/* Hero Section */}
@@ -85,6 +101,34 @@ export default function Home() {
           </Link>
         ))}
       </section>
+
+      {/* Recent Searches */}
+      {history.length > 0 && (
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Clock className="h-5 w-5 text-muted-foreground" />
+              <h2 className="text-lg font-semibold">Recent Searches</h2>
+            </div>
+            <Button variant="ghost" size="sm" onClick={handleClearHistory} className="text-muted-foreground">
+              <X className="h-3.5 w-3.5 mr-1" />
+              Clear
+            </Button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {history.slice(0, 12).map((word) => (
+              <Link key={word} href={`/word-details?word=${word}`}>
+                <Badge
+                  variant="secondary"
+                  className="text-sm px-3 py-1.5 cursor-pointer transition-colors hover:bg-primary/20 hover:text-primary"
+                >
+                  {word}
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Brief About */}
       <section className="text-center max-w-2xl mx-auto space-y-2">
