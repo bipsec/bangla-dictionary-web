@@ -1,45 +1,82 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+    "/_not-found/page": [
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/chunks/app/_not-found/page-00d57b682c5ecb9b.js"
     ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
-    "/module/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/module/page.js"
-    ],
-    "/ipa/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/ipa/page.js"
-    ],
-    "/browse/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/browse/page.js"
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/css/23b8fde298ba9984.css",
+      "static/chunks/181-0581b0cafe4e8085.js",
+      "static/chunks/972-a5b1d32eacec554c.js",
+      "static/chunks/app/layout-7c6aaa525ce0ec1b.js"
     ],
     "/browse/list-of-words/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/browse/list-of-words/page.js"
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/chunks/181-0581b0cafe4e8085.js",
+      "static/chunks/972-a5b1d32eacec554c.js",
+      "static/chunks/app/browse/list-of-words/page-442a17fa23d02b7c.js"
     ],
-    "/word-details/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/word-details/page.js"
+    "/browse/page": [
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/chunks/972-a5b1d32eacec554c.js",
+      "static/chunks/app/browse/page-c28b9ac2c404fef6.js"
+    ],
+    "/ipa/page": [
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/chunks/181-0581b0cafe4e8085.js",
+      "static/chunks/app/ipa/page-ed9aab5f25aaf882.js"
     ],
     "/instructions/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/instructions/page.js"
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/chunks/181-0581b0cafe4e8085.js",
+      "static/chunks/972-a5b1d32eacec554c.js",
+      "static/chunks/952-2cb3a3f24566e663.js",
+      "static/chunks/app/instructions/page-0ce6fafd81fbb23b.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/chunks/181-0581b0cafe4e8085.js",
+      "static/chunks/972-a5b1d32eacec554c.js",
+      "static/chunks/app/page-72bc314a0eb09ea4.js"
+    ],
+    "/module/page": [
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/chunks/181-0581b0cafe4e8085.js",
+      "static/chunks/app/module/page-f2c58ab2abb11e1b.js"
+    ],
+    "/word-details/page": [
+      "static/chunks/webpack-da2ff63a636c39ae.js",
+      "static/chunks/fd9d1056-bb01ff989b0918d5.js",
+      "static/chunks/117-c475d79f075691c1.js",
+      "static/chunks/main-app-8e6f739ce8ea0beb.js",
+      "static/chunks/181-0581b0cafe4e8085.js",
+      "static/chunks/972-a5b1d32eacec554c.js",
+      "static/chunks/app/word-details/page-43e0f054e7df5db8.js"
     ]
   }
 }
