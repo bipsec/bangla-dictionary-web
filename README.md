@@ -1,21 +1,35 @@
-## Table of Contents
+## Bangla Dictionary Web
 
-- [Prerequisites](#prerequisites)
-- [Up and Run](#up-and-run)
+A comprehensive online Bangla dictionary built with Next.js, shadcn/ui, and Tailwind CSS.
 
 ### Prerequisites
 
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- npm
 
-### Up and Run
-
-#### For development run
+### Setup
 
 ```sh
 git clone https://github.com/bipsec/bangla-dictionary-web.git
-cd bangla-browse
-docker-compose -f docker-compose.dev.yml up --build
+cd bangla-dictionary-web
+cp .env.example .env.local   # Edit if your API runs on a different host/port
+npm install
+npm run dev
 ```
 
-You'll be able to see the project is being run at [http://localhost:3000/](http://localhost:3002/)
+The app will be available at [http://localhost:3000](http://localhost:3000)
+
+### Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+
+### Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **UI Components**: shadcn/ui + Radix UI
+- **Styling**: Tailwind CSS
+- **Theme**: next-themes (dark/light mode)
+- **Language**: TypeScript
