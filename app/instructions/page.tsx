@@ -1,8 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { HelpCircle, Search, BookOpen, Languages } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { HelpCircle, Search, BookOpen, Languages, BookMarked, Scroll, Package } from "lucide-react"
 import {
   Accordion,
   AccordionContent,
@@ -14,91 +13,122 @@ import { Button } from "@/components/ui/button"
 const steps = [
   {
     icon: Search,
-    title: "Search a word",
-    description: "Use the search bar at the top to look up any Bangla or English word instantly.",
+    title: "শব্দ খুঁজুন",
+    titleEn: "Search a Word",
+    description: "উপরের সার্চ বারে যেকোনো বাংলা বা ইংরেজি শব্দ টাইপ করুন। সঙ্গে সঙ্গে ফলাফল পাবেন।",
   },
   {
     icon: BookOpen,
-    title: "Browse by letter",
-    description: "Go to Browse and select a Bengali letter to see all words starting with it.",
+    title: "বর্ণ দিয়ে ব্রাউজ করুন",
+    titleEn: "Browse by Letter",
+    description: "ব্রাউজ পেজে যান এবং একটি বাংলা বর্ণ নির্বাচন করুন — সেই বর্ণ দিয়ে শুরু সব শব্দ দেখুন।",
+  },
+  {
+    icon: BookMarked,
+    title: "সম্পূর্ণ অভিধান",
+    titleEn: "Complete Dictionary",
+    description: "একাধিক অভিধান থেকে একত্রিত শব্দের অর্থ, IPA উচ্চারণ ও উৎস সহ দেখুন।",
+  },
+  {
+    icon: Scroll,
+    title: "পৌরাণিক উৎস",
+    titleEn: "Pouranic Origin",
+    description: "বাংলা শব্দের পৌরাণিক ও পুরাণভিত্তিক ব্যাখ্যা জানুন।",
   },
   {
     icon: Languages,
-    title: "Generate IPA",
-    description: "Use the IPA Translator to convert Bangla text into phonetic notation.",
+    title: "IPA ট্রান্সলেটর",
+    titleEn: "IPA Translator",
+    description: "IPA পেজে গিয়ে বাংলা লেখাকে ফোনেটিক নোটেশনে রূপান্তর করুন।",
+  },
+  {
+    icon: Package,
+    title: "PyPI প্যাকেজ",
+    titleEn: "PyPI Package",
+    description: "আপনার Python প্রজেক্টে BanglaDictionary ব্যবহার করুন।",
   },
 ]
 
 const faqData = [
   {
     id: "1",
-    title: "How to use this dictionary?",
-    content: "Use the search bar to find any word, or browse by letter in the Browse section. Each word shows its meaning, part of speech, and IPA pronunciation.",
+    question: "এই অভিধান কীভাবে ব্যবহার করবেন?",
+    answer: "সার্চ বার ব্যবহার করে যেকোনো শব্দ খুঁজুন, অথবা ব্রাউজ সেকশনে বর্ণ নির্বাচন করে শব্দ দেখুন। প্রতিটি শব্দের অর্থ, পদ পরিচয় এবং IPA উচ্চারণ পাওয়া যাবে।",
   },
   {
     id: "2",
-    title: "How to generate IPA?",
-    content: "Go to the IPA Translator page. You can type text directly (Normal or Avro mode) or upload a .txt file. Click the IPA button to generate the phonetic representation.",
+    question: "IPA কীভাবে তৈরি করবেন?",
+    answer: "IPA ট্রান্সলেটর পেজে যান। সরাসরি টাইপ করুন (Normal বা Avro মোডে) অথবা .txt ফাইল আপলোড করুন। IPA বাটনে ক্লিক করলে ফোনেটিক রূপান্তর পাবেন।",
   },
   {
     id: "3",
-    title: "What makes this dictionary different?",
-    content: "This dictionary provides IPA pronunciation, Avro phonetic typing support, and a comprehensive Bengali word database with meanings and parts of speech.",
+    question: "এই অভিধান অন্যদের থেকে আলাদা কেন?",
+    answer: "এই অভিধানে একাধিক বাংলা অভিধানের (ব্যবহারিক বাংলা অভিধান, সংসদ, বিবর্তনমূলক সহ ৭টি উৎস) তথ্য একত্রিত করা হয়েছে। IPA উচ্চারণ, Avro ফোনেটিক ইনপুট এবং পৌরাণিক উৎস সহ বিস্তারিত তথ্য পাওয়া যায়।",
   },
   {
     id: "4",
-    title: "Is this dictionary free?",
-    content: "Yes, this dictionary is completely free to use. Enjoy exploring the Bengali language!",
+    question: "কোন কোন অভিধান ব্যবহার করা হয়েছে?",
+    answer: "ব্যবহারিক বাংলা অভিধান, আধুনিক বাংলা অভিধান, সংসদ বাংলা অভিধান, বিবর্তনমূলক বাংলা অভিধান, সংক্ষিপ্ত বাংলা অভিধান, এনসাইক্লোপিডিয়া বাংলা অভিধান এবং অভিগম্য অভিধান।",
+  },
+  {
+    id: "5",
+    question: "এই অভিধান কি বিনামূল্যে?",
+    answer: "হ্যাঁ, এই অভিধান সম্পূর্ণ বিনামূল্যে ব্যবহার করা যায়।",
+  },
+  {
+    id: "6",
+    question: "Python প্রজেক্টে কীভাবে ব্যবহার করবেন?",
+    answer: "pip install bangla-dictionary কমান্ড দিয়ে প্যাকেজটি ইনস্টল করুন। PyPI পেজে বিস্তারিত ডকুমেন্টেশন ও উদাহরণ কোড পাবেন।",
   },
 ]
 
 export default function InstructionsPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-10">
-      {/* Page header */}
+      {/* Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
           <HelpCircle className="h-5 w-5" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold">Help & Instructions</h1>
-          <p className="text-sm text-muted-foreground">
-            Learn how to get the most out of Bangla Dictionary
-          </p>
+          <h1 className="text-2xl font-bold">সাহায্য ও নির্দেশিকা</h1>
+          <p className="text-sm text-muted-foreground font-meta">Help & Instructions</p>
         </div>
       </div>
 
       {/* Getting Started */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Getting Started</h2>
-        <div className="grid gap-4">
+        <h2 className="font-meta text-[11px] uppercase tracking-widest text-muted-foreground">শুরু করুন</h2>
+        <div className="rounded-xl overflow-hidden border divide-y divide-border/50">
           {steps.map((step, i) => (
-            <Card key={i}>
-              <CardContent className="flex items-center gap-4 pt-4 pb-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold">
-                  {i + 1}
+            <div key={i} className="flex items-start gap-4 px-4 py-4 bg-card">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 border border-primary/20 mt-0.5">
+                <step.icon className="h-4 w-4 text-primary" />
+              </div>
+              <div className="space-y-0.5">
+                <div className="flex items-baseline gap-2">
+                  <h3 className="font-semibold text-[15px]">{step.title}</h3>
+                  <span className="font-meta text-[11px] text-muted-foreground">{step.titleEn}</span>
                 </div>
-                <div>
-                  <h3 className="font-medium flex items-center gap-2">
-                    <step.icon className="h-4 w-4 text-primary" />
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{step.description}</p>
-                </div>
-              </CardContent>
-            </Card>
+                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
       {/* FAQ */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Frequently Asked Questions</h2>
+        <h2 className="font-meta text-[11px] uppercase tracking-widest text-muted-foreground">সাধারণ প্রশ্ন</h2>
         <Accordion type="single" collapsible className="w-full">
           {faqData.map((item) => (
             <AccordionItem key={item.id} value={item.id}>
-              <AccordionTrigger>{item.title}</AccordionTrigger>
-              <AccordionContent>{item.content}</AccordionContent>
+              <AccordionTrigger className="text-left font-semibold text-[15px]">
+                {item.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground leading-relaxed">
+                {item.answer}
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
@@ -106,10 +136,10 @@ export default function InstructionsPage() {
 
       {/* CTA */}
       <section className="text-center space-y-3 pb-4">
-        <p className="text-muted-foreground">Want to use this dictionary in your own projects?</p>
+        <p className="text-muted-foreground text-sm">আপনার প্রজেক্টে এই অভিধান ব্যবহার করতে চান?</p>
         <Button asChild>
           <Link href="/module">
-            Check out the PyPI Package
+            PyPI প্যাকেজ দেখুন
           </Link>
         </Button>
       </section>

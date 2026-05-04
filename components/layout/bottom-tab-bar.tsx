@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation"
 import {
   Home,
   BookOpen,
+  BookMarked,
+  Scroll,
   Languages,
   Package,
   HelpCircle,
@@ -12,11 +14,13 @@ import {
 import { cn } from "@/lib/utils"
 
 const tabs = [
-  { title: "Home", href: "/", icon: Home },
-  { title: "Browse", href: "/browse", icon: BookOpen },
-  { title: "IPA", href: "/ipa", icon: Languages },
-  { title: "PyPI", href: "/module", icon: Package },
-  { title: "Help", href: "/instructions", icon: HelpCircle },
+  { title: "Home",     href: "/",                    icon: Home       },
+  { title: "Browse",   href: "/browse",              icon: BookOpen   },
+  { title: "সম্পূর্ণ", href: "/complete-dictionary", icon: BookMarked },
+  { title: "পৌরাণিক", href: "/pouranik-utso",        icon: Scroll     },
+  { title: "IPA",      href: "/ipa",                 icon: Languages  },
+  { title: "PyPI",     href: "/module",              icon: Package    },
+  { title: "Help",     href: "/instructions",        icon: HelpCircle },
 ]
 
 export function BottomTabBar() {
@@ -24,7 +28,7 @@ export function BottomTabBar() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:hidden">
-      <div className="flex h-16 items-center justify-around px-2 pb-[env(safe-area-inset-bottom)]">
+      <div className="flex h-16 items-center justify-around px-1 pb-[env(safe-area-inset-bottom)]">
         {tabs.map((tab) => {
           const isActive =
             pathname === tab.href ||
@@ -34,13 +38,13 @@ export function BottomTabBar() {
               key={tab.href}
               href={tab.href}
               className={cn(
-                "flex flex-col items-center gap-1 rounded-md px-3 py-1.5 text-[10px] font-medium transition-colors",
+                "flex flex-col items-center gap-1 rounded-md px-2 py-1.5 text-[9px] font-medium transition-colors",
                 isActive
                   ? "text-primary"
                   : "text-muted-foreground"
               )}
             >
-              <tab.icon className={cn("h-5 w-5", isActive && "stroke-[2.5]")} />
+              <tab.icon className={cn("h-4 w-4", isActive && "stroke-[2.5]")} />
               {tab.title}
             </Link>
           )

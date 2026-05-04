@@ -13,6 +13,8 @@ import {
   Moon,
   Sun,
   Search,
+  BookMarked,
+  Scroll,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SearchBox, SearchBoxHandle } from "./search-box"
@@ -20,11 +22,13 @@ import { SearchOverlay } from "./search-overlay"
 import { cn } from "@/lib/utils"
 
 const navItems = [
-  { title: "Home", href: "/", icon: Home },
-  { title: "Browse", href: "/browse", icon: BookOpen },
-  { title: "IPA", href: "/ipa", icon: Languages },
-  { title: "PyPI", href: "/module", icon: Package },
-  { title: "Help", href: "/instructions", icon: HelpCircle },
+  { title: "Home",      href: "/",                    icon: Home       },
+  { title: "Browse",    href: "/browse",              icon: BookOpen   },
+  { title: "Dictionary",href: "/complete-dictionary", icon: BookMarked },
+  { title: "Pouranic",  href: "/pouranik-utso",       icon: Scroll     },
+  { title: "IPA",       href: "/ipa",                 icon: Languages  },
+  { title: "PyPI",      href: "/module",              icon: Package    },
+  { title: "Help",      href: "/instructions",        icon: HelpCircle },
 ]
 
 export function TopNav() {
@@ -58,12 +62,12 @@ export function TopNav() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-primary shrink-0">
             <BookOpen className="h-5 w-5" />
-            <span className="hidden sm:inline text-lg">Bangla Dictionary</span>
-            <span className="sm:hidden text-lg">BD</span>
+            <span className="hidden sm:inline text-lg">ঋদ্ধি অভিধান</span>
+            <span className="sm:hidden text-lg">ঋদ্ধি</span>
           </Link>
 
           {/* Desktop nav links */}
-          <nav className="hidden lg:flex items-center gap-1 ml-4">
+          <nav className="hidden lg:flex items-center gap-0.5 ml-2">
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -73,13 +77,13 @@ export function TopNav() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    "flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors whitespace-nowrap",
                     isActive
                       ? "bg-nav-active text-nav-active-foreground"
                       : "text-muted-foreground hover:bg-accent hover:text-foreground"
                   )}
                 >
-                  <item.icon className="h-4 w-4" />
+                  <item.icon className="h-3.5 w-3.5" />
                   {item.title}
                 </Link>
               )
@@ -90,7 +94,7 @@ export function TopNav() {
           <div className="flex-1" />
 
           {/* Desktop search */}
-          <div className="hidden lg:block w-80">
+          <div className="hidden lg:block w-56">
             <SearchBox ref={searchBoxRef} variant="navbar" />
           </div>
 

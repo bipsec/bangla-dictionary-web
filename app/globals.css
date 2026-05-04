@@ -75,3 +75,14 @@
     @apply bg-background text-foreground antialiased;
   }
 }
+
+@layer utilities {
+  .font-bengali {
+    font-family: var(--font-hind), 'Hind Siliguri', sans-serif;
+    line-height: 1.8;
+  }
+  .font-meta {
+    font-family: var(--font-work), 'Work Sans', sans-serif;
+    letter-spacing: 0.02em;
+  }
+}
