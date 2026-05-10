@@ -39,6 +39,21 @@ function BreadcrumbContent() {
       })
     }
     crumbs.push({ label: word || "Word" })
+  } else if (pathname.startsWith("/word/")) {
+    const word = decodeURIComponent(pathname.replace("/word/", ""))
+    const firstLetter = word?.charAt(0)
+    crumbs.push({ label: "Browse", href: "/browse" })
+    if (firstLetter) {
+      crumbs.push({
+        label: firstLetter,
+        href: `/browse/list-of-words?letter=${encodeURIComponent(firstLetter)}`,
+      })
+    }
+    crumbs.push({ label: word })
+  } else if (pathname === "/complete-dictionary") {
+    crumbs.push({ label: "সম্পূর্ণ অভিধান" })
+  } else if (pathname === "/pouranik-utso") {
+    crumbs.push({ label: "পৌরাণিক উৎস" })
   } else if (pathname === "/ipa") {
     crumbs.push({ label: "IPA Translator" })
   } else if (pathname === "/instructions") {

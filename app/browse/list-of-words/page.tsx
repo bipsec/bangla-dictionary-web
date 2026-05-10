@@ -93,7 +93,7 @@ function WordListContent() {
             {paginatedData.map((item, index) => (
               <Link
                 key={index}
-                href={`/word/${encodeURIComponent(item?.word ?? "")}`}
+                href={`/word/${encodeURIComponent(item?.word ?? "")}?source=browse`}
                 className="flex items-center gap-3 px-4 py-3 bg-card hover:bg-primary/8 group transition-colors"
               >
                 <span className="font-meta text-xs tabular-nums w-5 text-right shrink-0 text-muted-foreground/40">

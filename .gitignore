@@ -28,3 +28,4 @@ yarn-error.log*
 # data files live on the backend, not in this repo
 /data
 
+ public/.well-known/

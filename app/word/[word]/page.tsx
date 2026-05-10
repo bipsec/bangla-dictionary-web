@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { BookOpen, Search, ArrowLeft } from "lucide-react"
@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { SourceBadge } from "@/components/ui/source-badge"
-import { fetchCompleteWordDetail, fetchCompleteWords } from "@/lib/api"
+import { fetchWordDetails, fetchWords } from "@/lib/api"
 import { addWordToHistory } from "@/lib/word-history"
 
 interface Meaning {
@@ -69,13 +69,38 @@ function WordContent() {
     setLoading(true)
     setError(false)
 
-    fetchCompleteWordDetail(word)
-      .then((data) => setDetail(data))
+    fetchWordDetails(word)
+      .then((data) => {
+        if (!data) { setDetail(null); return }
+        setDetail({
+          word: data.word,
+          ipa: data.ipa ?? "",
+          female_marker: null,
+          antonyms: [],
+          rhyme_words: [],
+          english: [],
+          pouranic_source: null,
+          meanings: (data.meanings ?? []).map((m: { id: number; meaning: string; pos?: string; spelling?: string; language?: string; sentence?: string; source?: string }) => ({
+            id: m.id,
+            definitions: [m.meaning],
+            meaning: m.meaning,
+            pos: m.pos ?? "",
+            pos_full: "",
+            pronunciation: m.spelling ?? "",
+            ipa: "",
+            root_lang: m.language ?? "",
+            topic_marker: "",
+            example: m.sentence ?? "",
+            synonyms: [],
+            page: "",
+            source: m.source ?? "",
+          })),
+        } as WordDetail)
+      })
       .catch(() => setError(true))
       .finally(() => setLoading(false))
 
-    const firstChar = word.charAt(0)
-    fetchCompleteWords(firstChar, 1, 500)
+    fetchWords(word.charAt(0), 1, 500)
       .then((data: { word: string }[]) => {
         const words = Array.isArray(data) ? data.map((w) => w.word) : []
         const prefix2 = word.slice(0, 2)
@@ -295,9 +320,5 @@ function WordContent() {
 }
 
 export default function WordPage() {
-  return (
-    <Suspense fallback={<WordSkeleton />}>
-      <WordContent />
-    </Suspense>
-  )
+  return <WordContent />
 }
