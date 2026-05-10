@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { Search, X, Clock, ArrowRight } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { fetchWords } from "@/lib/api"
+import { fetchCompleteWords } from "@/lib/api"
 import { getWordHistory, addWordToHistory } from "@/lib/word-history"
 
 interface SearchBoxProps {
@@ -57,8 +57,8 @@ export const SearchBox = forwardRef<SearchBoxHandle, SearchBoxProps>(
       }
       try {
         const firstLetter = query.trim().charAt(0)
-        const data = await fetchWords(firstLetter, 1, 500)
-        const words: string[] = (data.words || []).map((w: { word: string }) => w.word)
+        const data: { word: string }[] = await fetchCompleteWords(firstLetter, 1, 500)
+        const words = Array.isArray(data) ? data.map((w) => w.word) : []
         const filtered = words
           .filter((w: string) => w.startsWith(query.trim()))
           .slice(0, 8)
@@ -86,7 +86,7 @@ export const SearchBox = forwardRef<SearchBoxHandle, SearchBoxProps>(
       setValue("")
       setSuggestions([])
       setOpen(false)
-      router.push(`/word-details?word=${trimmed}`)
+      router.push(`/word/${encodeURIComponent(trimmed)}`)
     }
 
     const displayList = value.trim()

@@ -1,6 +1,7 @@
 "use client"
 
 import { Suspense, useEffect, useState, useCallback } from "react"
+import { useSearchParams } from "next/navigation"
 import { BookOpen, ChevronLeft, ChevronRight, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -9,9 +10,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Separator } from "@/components/ui/separator"
 
-const COMPLETE_DICT_API = "http://localhost:8000"
-const PAGE_LIMIT = 10
+import { API_URL as COMPLETE_DICT_API, fetchCompleteWordDetail } from "@/lib/api"
 
+const PAGE_LIMIT = 10
 
 const vowels = "অআইঈউঊঋএঐওঔ"
 const consonants = "কখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ"
@@ -23,6 +24,7 @@ interface WordItem {
 
 interface Meaning {
   id: number
+  definitions: string[]
   meaning: string
   pos: string
   pos_full: string
@@ -56,14 +58,7 @@ async function fetchCompleteDictWords(letter: string, page: number): Promise<Wor
   return res.json()
 }
 
-async function fetchCompleteDictWordDetail(word: string): Promise<WordDetail> {
-  const encoded = encodeURIComponent(word)
-  const res = await fetch(
-    `${COMPLETE_DICT_API}/complete-dictionary/word?word=${encoded}&page=1&limit=10`
-  )
-  if (!res.ok) throw new Error("Failed to fetch word detail")
-  return res.json()
-}
+const fetchCompleteDictWordDetail = fetchCompleteWordDetail
 
 export default function CompleteDictionaryPage() {
   return (
@@ -92,6 +87,9 @@ function PageSkeleton() {
 }
 
 function CompleteDictionaryContent() {
+  const searchParams = useSearchParams()
+  const initialWord = searchParams.get("word")
+
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null)
   const [words, setWords] = useState<WordItem[]>([])
   const [page, setPage] = useState(1)
@@ -131,20 +129,33 @@ function CompleteDictionaryContent() {
     setWordDetail(null)
   }
 
-  const handleWordSelect = async (word: string) => {
+  const handleWordSelect = useCallback(async (word: string) => {
     setSelectedWord(word)
     setDetailLoading(true)
     setDetailError(null)
     setWordDetail(null)
     try {
       const data = await fetchCompleteDictWordDetail(word)
-      setWordDetail(data)
+      if (data === null) {
+        setDetailError("এই শব্দটি সম্পূর্ণ অভিধানে পাওয়া যায়নি।")
+      } else {
+        setWordDetail(data)
+      }
     } catch {
-      setDetailError("Failed to load word details.")
+      setDetailError("শব্দের তথ্য লোড করতে ব্যর্থ হয়েছে।")
     } finally {
       setDetailLoading(false)
     }
-  }
+  }, [])
+
+  // Auto-open word from URL query param
+  useEffect(() => {
+    if (!initialWord) return
+    setSelectedLetter(initialWord.charAt(0))
+    setPage(1)
+    handleWordSelect(initialWord)
+  }, [initialWord, handleWordSelect])
+
 
   const handlePrev = () => {
     if (page > 1) setPage((p) => p - 1)
@@ -205,10 +216,20 @@ function CompleteDictionaryContent() {
         </div>
       </div>
 
-      {!selectedLetter && (
+      {!selectedLetter && !initialWord && (
         <p className="text-center text-muted-foreground py-12">
           একটি বর্ণ নির্বাচন করুন
         </p>
+      )}
+
+      {/* While initial word is loading but letter panel isn't ready yet */}
+      {!selectedLetter && initialWord && detailLoading && (
+        <div className="space-y-3">
+          <Skeleton className="h-9 w-48" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-5/6" />
+          <Skeleton className="h-4 w-4/6" />
+        </div>
       )}
 
       {selectedLetter && (
@@ -411,7 +432,15 @@ function CompleteDictionaryContent() {
                                 </div>
                                 <div className="flex-1 space-y-2">
                                   {/* Meaning text */}
-                                  <p className="font-bengali text-[16px] leading-relaxed text-foreground">{m.meaning}</p>
+                                  {(m.definitions?.length ?? 0) > 1 ? (
+                                    <ol className="list-decimal list-inside space-y-0.5">
+                                      {m.definitions.map((d, di) => (
+                                        <li key={di} className="font-bengali text-[16px] leading-relaxed text-foreground">{d}</li>
+                                      ))}
+                                    </ol>
+                                  ) : (
+                                    <p className="font-bengali text-[16px] leading-relaxed text-foreground">{m.meaning}</p>
+                                  )}
 
                                   {/* Grammar chips row */}
                                   <div className="flex flex-wrap gap-1.5">
@@ -462,8 +491,8 @@ function CompleteDictionaryContent() {
                                     <div className="flex items-center gap-1.5">
                                       <SourceBadge source={m.source} />
                                       {m.page && (
-                                        <span className="font-meta text-[11px] text-muted-foreground/60">
-                                          পৃ. {m.page}
+                                        <span className="font-meta text-[11px] text-muted-foreground/40" title="পৃষ্ঠা নম্বর নির্ভুল নাও হতে পারে">
+                                          পৃ. {m.page}*
                                         </span>
                                       )}
                                     </div>

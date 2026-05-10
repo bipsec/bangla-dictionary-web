@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-const API = "http://localhost:8000"
+import { API_URL as API } from "@/lib/api"
 const PAGE_LIMIT = 10
 
 const vowels = "অআইঈউঊঋএঐওঔ"

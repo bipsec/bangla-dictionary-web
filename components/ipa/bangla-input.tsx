@@ -19,9 +19,10 @@ export function BanglaInput() {
     setError(null)
     try {
       const data = await fetchIPA(bangla)
-      setIpaResult(data ?? "")
-    } catch {
-      setError("Failed to fetch IPA. Make sure the API server is running.")
+      setIpaResult(data?.ipa ?? "")
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : ""
+      setError(msg.includes("429") ? "অনেক অনুরোধ হয়ে গেছে। একটু অপেক্ষা করুন।" : "IPA তৈরি করতে ব্যর্থ হয়েছে।")
     } finally {
       setLoading(false)
     }

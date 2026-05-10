@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
-import { SourceBadge } from "@/components/ui/source-badge"
 import {
   Pagination,
   PaginationContent,
@@ -14,7 +13,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { fetchWords } from "@/lib/api"
+import { fetchCompleteWords } from "@/lib/api"
 
 const ITEMS_PER_PAGE = 25
 
@@ -55,7 +54,7 @@ function WordListContent() {
   useEffect(() => {
     if (letter) {
       setLoading(true)
-      fetchWords(letter)
+      fetchCompleteWords(letter)
         .then((data) => setWords(data))
         .catch(() => setWords([]))
         .finally(() => setLoading(false))
@@ -78,9 +77,7 @@ function WordListContent() {
         <div className="space-y-1">
           <h1 className="text-xl font-bold">{letter} দিয়ে শুরু শব্দসমূহ</h1>
           <div className="flex items-center gap-2">
-            <span className="font-meta text-xs text-muted-foreground">{words.length}টি শব্দ</span>
-            <span className="text-muted-foreground/40">·</span>
-            <SourceBadge source="ব্যবহারিক বাংলা অভিধান" />
+            <span className="font-meta text-xs text-muted-foreground">{words.length}টি শব্দ · সম্পূর্ণ অভিধান</span>
           </div>
         </div>
       </div>
@@ -93,7 +90,7 @@ function WordListContent() {
             {paginatedData.map((item, index) => (
               <Link
                 key={index}
-                href={`/word-details?word=${item?.word}`}
+                href={`/word/${encodeURIComponent(item?.word ?? "")}`}
                 className="flex items-center gap-3 px-4 py-3 bg-card hover:bg-primary/8 group transition-colors"
               >
                 <span className="font-meta text-xs tabular-nums w-5 text-right shrink-0 text-muted-foreground/40">

@@ -35,7 +35,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
 
   const handleSubmit = () => {
     if (value.trim()) {
-      router.push(`/word-details?word=${value.trim()}`)
+      router.push(`/word/${encodeURIComponent(value.trim())}`)
       onClose()
     }
   }
