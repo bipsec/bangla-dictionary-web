@@ -25,6 +25,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-# data files are on the backend only
-# public/ assets should be tracked
+# data files live on the backend, not in this repo
+/data
 
