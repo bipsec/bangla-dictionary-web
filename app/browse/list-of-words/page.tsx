@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
+import { SourceBadge } from "@/components/ui/source-badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Pagination,
@@ -13,7 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { fetchCompleteWords } from "@/lib/api"
+import { fetchWords } from "@/lib/api"
 
 const ITEMS_PER_PAGE = 25
 
@@ -54,7 +55,7 @@ function WordListContent() {
   useEffect(() => {
     if (letter) {
       setLoading(true)
-      fetchCompleteWords(letter)
+      fetchWords(letter)
         .then((data) => setWords(data))
         .catch(() => setWords([]))
         .finally(() => setLoading(false))
@@ -77,7 +78,9 @@ function WordListContent() {
         <div className="space-y-1">
           <h1 className="text-xl font-bold">{letter} দিয়ে শুরু শব্দসমূহ</h1>
           <div className="flex items-center gap-2">
-            <span className="font-meta text-xs text-muted-foreground">{words.length}টি শব্দ · সম্পূর্ণ অভিধান</span>
+            <span className="font-meta text-xs text-muted-foreground">{words.length}টি শব্দ</span>
+            <span className="text-muted-foreground/40">·</span>
+            <SourceBadge source="ব্যবহারিক বাংলা অভিধান" />
           </div>
         </div>
       </div>
