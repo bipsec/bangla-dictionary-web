@@ -1,0 +1,165 @@
+{
+  "note": "Reference PyTorch outputs; scripts/verify-ipa-node.mjs asserts the Node runtime reproduces these.",
+  "cases": [
+    {
+      "word": "খোদা",
+      "ipa": "k ʰ o d ̪ a"
+    },
+    {
+      "word": "এমবি",
+      "ipa": "e m b i"
+    },
+    {
+      "word": "বিষহরী",
+      "ipa": "b i ʃ ɔ h o r i"
+    },
+    {
+      "word": "বৈড়ালব্রেত",
+      "ipa": "b o i ̯ ɽ a l b r e t ̪ o"
+    },
+    {
+      "word": "পোষায়",
+      "ipa": "p o ʃ a ʲ"
+    },
+    {
+      "word": "ঠানদি",
+      "ipa": "t ʰ a n d ̪ i"
+    },
+    {
+      "word": "অনাহ্লাদিত",
+      "ipa": "ɔ n a h l a d ̪ i t ̪ o"
+    },
+    {
+      "word": "ইঙ্গিতজ্ঞ",
+      "ipa": "i ŋ g i t ̪ ɔ g g o"
+    },
+    {
+      "word": "ইচ্ছাবরী",
+      "ipa": "i c c ʰ a b o r i"
+    },
+    {
+      "word": "জলভাঙ্গা",
+      "ipa": "ɟ ɔ l b ʰ a ŋ g a"
+    },
+    {
+      "word": "এয়া",
+      "ipa": "e ʲ a"
+    },
+    {
+      "word": "ইহজীবন",
+      "ipa": "i h o ɟ i b ɔ n"
+    },
+    {
+      "word": "আলুলিত",
+      "ipa": "a l u l i t ̪ o"
+    },
+    {
+      "word": "বৈরাট",
+      "ipa": "b o i ̯ r a t"
+    },
+    {
+      "word": "বিম্বোষ্ঠ",
+      "ipa": "b i m b o ʃ t ʰ o"
+    },
+    {
+      "word": "আজাজিল",
+      "ipa": "a ɟ a ɟ i l"
+    },
+    {
+      "word": "পুষ্পরজ",
+      "ipa": "p u ʃ p o r ɔ ɟ"
+    },
+    {
+      "word": "মজযুব",
+      "ipa": "m o ɟ ɟ u b"
+    },
+    {
+      "word": "পোঁত",
+      "ipa": "p o t ̪"
+    },
+    {
+      "word": "যোয়ান",
+      "ipa": "ɟ o ʷ a n"
+    },
+    {
+      "word": "ডেউয়া",
+      "ipa": "d e u ̯ ʲ a"
+    },
+    {
+      "word": "খেয়াকড়ি",
+      "ipa": "k ʰ e ʲ a k o ɽ i"
+    },
+    {
+      "word": "হদ্দ",
+      "ipa": "h ɔ d ̪ d ̪ o"
+    },
+    {
+      "word": "অশাস্য",
+      "ipa": "ɔ ʃ a ʃ ʃ o"
+    },
+    {
+      "word": "অবধান",
+      "ipa": "ɔ b o d ̪ ʰ a n"
+    },
+    {
+      "word": "আজ্ঞে",
+      "ipa": "a g g e"
+    },
+    {
+      "word": "তরানো",
+      "ipa": "t ̪ ɔ r a n o"
+    },
+    {
+      "word": "ধ্বনিফলক",
+      "ipa": "d ̪ ʰ o n i p ʰ ɔ l o k"
+    },
+    {
+      "word": "অগ্নিভাণ্ড",
+      "ipa": "ɔ g n i b ʰ a n d o"
+    },
+    {
+      "word": "তহসীল",
+      "ipa": "t ̪ ɔ h o ʃ i l"
+    },
+    {
+      "word": "রিষ্ট",
+      "ipa": "r i ʃ t o"
+    },
+    {
+      "word": "পুরুব",
+      "ipa": "p u r u b"
+    },
+    {
+      "word": "ইঁদুর",
+      "ipa": "i d ̪ u r"
+    },
+    {
+      "word": "ধামারি",
+      "ipa": "d ̪ ʰ a m a r i"
+    },
+    {
+      "word": "ধিনতাধিন",
+      "ipa": "d ̪ ʰ i n t ̪ a d ̪ ʰ i n"
+    },
+    {
+      "word": "কাঁধ",
+      "ipa": "k a d ̪ ʰ"
+    },
+    {
+      "word": "ফরন্ত",
+      "ipa": "p ʰ ɔ r o n t ̪ o"
+    },
+    {
+      "word": "যাহাকেতাহাকে",
+      "ipa": "ɟ a h a k e t ̪ a h a k e"
+    },
+    {
+      "word": "বাঁদিপোতা",
+      "ipa": "b a d ̪ i p o t ̪ a"
+    },
+    {
+      "word": "করুণানিলয়",
+      "ipa": "k o r u n a n i l ɔ ʲ"
+    }
+  ]
+}

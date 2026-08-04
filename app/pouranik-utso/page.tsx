@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-import { API_URL as API } from "@/lib/api"
+import { fetchPouranikWordDetail, fetchPouranikWords } from "@/lib/api"
+
 const PAGE_LIMIT = 10
 
 const vowels = "অআইঈউঊঋএঐওঔ"
@@ -25,22 +26,6 @@ interface Entry {
 interface WordDetail {
   word: string
   entries: Entry[]
-}
-
-async function fetchWords(letter: string, page: number): Promise<WordItem[]> {
-  const res = await fetch(
-    `${API}/pouranik-utso/words?letter=${encodeURIComponent(letter)}&page=${page}&limit=${PAGE_LIMIT}`
-  )
-  if (!res.ok) throw new Error("Failed to fetch words")
-  return res.json()
-}
-
-async function fetchWordDetail(word: string): Promise<WordDetail> {
-  const res = await fetch(
-    `${API}/pouranik-utso/word?word=${encodeURIComponent(word)}`
-  )
-  if (!res.ok) throw new Error("Failed to fetch word detail")
-  return res.json()
 }
 
 export default function PouraniKUtsoPage() {
@@ -84,7 +69,7 @@ function PouraniKUtsoContent() {
   const loadWords = useCallback(async (letter: string, p: number) => {
     setWordsLoading(true)
     try {
-      const data = await fetchWords(letter, p)
+      const data = await fetchPouranikWords(letter, p, PAGE_LIMIT)
       setWords(data)
       setHasMore(data.length === PAGE_LIMIT)
     } catch {
@@ -113,7 +98,11 @@ function PouraniKUtsoContent() {
     setDetailError(null)
     setWordDetail(null)
     try {
-      const data = await fetchWordDetail(word)
+      const data = await fetchPouranikWordDetail(word)
+      if (!data) {
+        setDetailError("এই শব্দটি পাওয়া যায়নি।")
+        return
+      }
       setWordDetail(data)
     } catch {
       setDetailError("শব্দের তথ্য লোড করতে ব্যর্থ হয়েছে।")

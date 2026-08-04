@@ -10,52 +10,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Separator } from "@/components/ui/separator"
 
-import { API_URL as COMPLETE_DICT_API, fetchCompleteWordDetail } from "@/lib/api"
+import {
+  fetchCompleteWordDetail,
+  fetchCompleteWords,
+  type CompleteWordDetail as WordDetail,
+  type WordItem,
+} from "@/lib/api"
 
 const PAGE_LIMIT = 10
 
 const vowels = "অআইঈউঊঋএঐওঔ"
 const consonants = "কখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ"
 
-interface WordItem {
-  id: number
-  word: string
-}
-
-interface Meaning {
-  id: number
-  definitions: string[]
-  meaning: string
-  pos: string
-  pos_full: string
-  pronunciation: string
-  ipa: string
-  root_lang: string
-  topic_marker: string
-  example: string
-  synonyms: string[]
-  page: string
-  source: string
-}
-
-interface WordDetail {
-  word: string
-  ipa: string
-  female_marker: string
-  antonyms: string[]
-  rhyme_words: string[]
-  english: string[]
-  pouranic_source: string | null
-  meanings: Meaning[]
-}
-
-async function fetchCompleteDictWords(letter: string, page: number): Promise<WordItem[]> {
-  const encoded = encodeURIComponent(letter)
-  const res = await fetch(
-    `${COMPLETE_DICT_API}/complete-dictionary/words?letter=${encoded}&page=${page}&limit=${PAGE_LIMIT}`
-  )
-  if (!res.ok) throw new Error("Failed to fetch words")
-  return res.json()
+function fetchCompleteDictWords(letter: string, page: number): Promise<WordItem[]> {
+  return fetchCompleteWords(letter, page, PAGE_LIMIT)
 }
 
 const fetchCompleteDictWordDetail = fetchCompleteWordDetail
@@ -432,7 +400,7 @@ function CompleteDictionaryContent() {
                                 </div>
                                 <div className="flex-1 space-y-2">
                                   {/* Meaning text */}
-                                  {(m.definitions?.length ?? 0) > 1 ? (
+                                  {m.definitions && m.definitions.length > 1 ? (
                                     <ol className="list-decimal list-inside space-y-0.5">
                                       {m.definitions.map((d, di) => (
                                         <li key={di} className="font-bengali text-[16px] leading-relaxed text-foreground">{d}</li>

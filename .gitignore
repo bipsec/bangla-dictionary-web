@@ -4,28 +4,59 @@
 /node_modules
 /.pnp
 .pnp.js
-.idea
-.env
-# testing
-/coverage
 
 # next.js
 /.next
+/out
 
 # production
 /build
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# deployment
+/.vercel
 
+# typescript
+*.tsbuildinfo
+
+# testing
+/coverage
+
+# environment — only .env.example is committed
+.env
+.env*.local
+
+# caches
+.eslintcache
+
+# editors
+.idea
+.vscode
+*.swp
+
+# os
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-# data files live on the backend, not in this repo
+*.log
+
+# Byte-compiled output from the one-off Python export scripts in scripts/python.
+__pycache__/
+*.py[cod]
+
+# Virtualenv used only for the one-off PyTorch -> ONNX export.
+/.venv-export
+
+# Source corpora for the loader scripts (hundreds of MB). Needed only to (re)load the
+# database locally — never at runtime. See README "Loading the data".
 /data
 
- public/.well-known/
+# Written by Chrome DevTools when it has the project open locally; not part of the site.
+public/.well-known/appspecific/
+
+# NOTE: /model is intentionally NOT ignored — model/ipa_model.onnx and the vocab files
+# are read at runtime by app/api/ipa and must be deployed with the app.

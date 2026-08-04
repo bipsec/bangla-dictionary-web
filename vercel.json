@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "functions": {
+    "app/api/ipa/route.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  }
+}

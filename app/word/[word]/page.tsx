@@ -10,35 +10,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { SourceBadge } from "@/components/ui/source-badge"
-import { fetchWordDetails, fetchWords } from "@/lib/api"
+import { fetchWordDetails, fetchWords, type CompleteWordDetail as WordDetail } from "@/lib/api"
 import { addWordToHistory } from "@/lib/word-history"
-
-interface Meaning {
-  id: number
-  definitions: string[]
-  meaning: string
-  pos: string
-  pos_full: string
-  pronunciation: string
-  ipa: string
-  root_lang: string
-  topic_marker: string
-  example: string
-  synonyms: string[]
-  page: string | number
-  source: string
-}
-
-interface WordDetail {
-  word: string
-  ipa: string
-  female_marker: string | null
-  antonyms: string[]
-  rhyme_words: string[]
-  english: string[]
-  pouranic_source: string | null
-  meanings: Meaning[]
-}
 
 function WordSkeleton() {
   return (
@@ -80,7 +53,8 @@ function WordContent() {
           rhyme_words: [],
           english: [],
           pouranic_source: null,
-          meanings: (data.meanings ?? []).map((m: { id: number; meaning: string; pos?: string; spelling?: string; language?: string; sentence?: string; source?: string }) => ({
+          // Nullable columns are coerced to "" here; the renderer below treats empty as absent.
+          meanings: (data.meanings ?? []).map((m) => ({
             id: m.id,
             definitions: [m.meaning],
             meaning: m.meaning,
@@ -234,7 +208,7 @@ function WordContent() {
                   </span>
                 </div>
                 <div className="flex-1 space-y-1.5 min-w-0">
-                  {(m.definitions?.length ?? 0) > 1 ? (
+                  {m.definitions && m.definitions.length > 1 ? (
                     <ol className="list-decimal list-inside space-y-0.5">
                       {m.definitions.map((d, di) => (
                         <li key={di} className="font-bengali text-[16px] leading-relaxed text-foreground">{d}</li>

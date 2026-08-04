@@ -1,0 +1,7 @@
+{
+  "seq_len": 64,
+  "max_decode_steps": 60,
+  "src_pad_idx": 1,
+  "trg_pad_idx": 1,
+  "opset": 17
+}
